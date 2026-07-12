@@ -1,4 +1,4 @@
-# Portfolio Optimization Project
+# Quantitative Portfolio Optimization 
 
 This project uses quantitative finance models to analyze and optimize a multi-asset portfolio.
 
