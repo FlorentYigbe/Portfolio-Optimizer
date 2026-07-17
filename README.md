@@ -1,8 +1,8 @@
 # Quant Portfolio Optimizer
 
-**Author** : Florent Yigbe
-**Program** : BSc, Mathematics in Business and Economics
-**Date** : March to May 2026
+**Author** : Florent Yigbe  
+**Program** : BSc, Mathematics in Business and Economics  
+**Date** :  July 2026  
 
 ---
 
@@ -19,12 +19,12 @@ The project is structured as follows:
 
 | Step | Section | Description |
 |------|---------|-------------|
-| 1 | Data Collection | 10 years of adjusted daily price data (2015–2025), computed daily returns |
+| 1 | Data Collection | 10 years of adjusted daily price data (2015-2025), computed daily returns |
 | 2 | Asset Risk Metrics | Annualized return, volatility, Sharpe ratio per asset, correlation heatmap |
-| 3 | Equal-Weight Portfolio | Naive 1/N baseline for comparison |
-| 4 | Portfolio Optimization | SLSQP mean-variance optimization — Max Sharpe & Min Volatility portfolios |
+| 3 | Equal-Weight Portfolio |  1/N baseline for comparison |
+| 4 | Portfolio Optimization | SLSQP mean-variance optimization - Max Sharpe & Min Volatility portfolios |
 | 5 | Value at Risk & CVaR | Historical VaR and CVaR at 95% and 99% confidence, in € terms |
-| 6 | Cumulative Returns | Growth of €1 — Max Sharpe vs Equal-Weight vs S&P 500 |
+| 6 | Cumulative Returns | Growth of €1 - Max Sharpe vs Equal-Weight vs S&P 500 |
 | 7 | Summary | Consolidated performance table (return, volatility, Sharpe, VaR/CVaR, cumulative return) with top holdings |
 | 8 | Limitations & Future Improvements | Critical review of methodology, data, and risk modeling assumptions, with a roadmap for extensions |
 
@@ -34,16 +34,16 @@ The project is structured as follows:
 
 The 29-asset universe is built around four diversification axes:
 
-- **US Equities (10)** — sector diversification across Technology, Healthcare,
+- **US Equities (10)** - sector diversification across Technology, Healthcare,
   Financials, Consumer, Energy, Industrials, Utilities, and Real Estate
   (e.g. MSFT, NVDA, LLY, JPM, XOM).
-- **International Equities (10)** — geographic diversification across Europe,
+- **International Equities (10)** - geographic diversification across Europe,
   Japan, Taiwan, China, India, Brazil, and Canada (e.g. ASML, SAP, TSM, BABA,
   HDB, VALE).
-- **Fixed Income (5)** — US Treasuries across maturities, TIPS, international
+- **Fixed Income (5)** - US Treasuries across maturities, TIPS, international
   and emerging-market bonds (TLT, IEF, TIP, BNDX, EMB), used for
   de-correlation from equities.
-- **Alternative Assets (4)** — commodities as inflation hedges and safe
+- **Alternative Assets (4)** - commodities as inflation hedges and safe
   havens: gold, silver, oil, and agriculture (GLD, SLV, USO, DBA).
 
 ## Methodology
@@ -52,23 +52,11 @@ The 29-asset universe is built around four diversification axes:
   (SLSQP method), subject to a fully-invested constraint (weights sum to 1)
   and long-only bounds (0 ≤ w ≤ 1).
 - **Expected return**: Arithmetic mean of daily returns, annualized (×252
-  trading days) — standard convention for Markowitz optimization.
+  trading days) - standard convention for Markowitz optimization.
 - **Risk**: Annualized covariance matrix of daily returns.
 - **Risk-free rate**: Fixed at 4.5%, used in the Sharpe ratio calculation.
 - **VaR / CVaR**: Computed historically (empirical percentiles), not
   parametric or simulation-based.
-
-## Requirements
-
-```bash
-pip install yfinance pandas numpy scipy matplotlib seaborn
-```
-
-## Usage
-
-Run `Portfolio_optimizer.ipynb` top to bottom. Data is downloaded live from
-Yahoo Finance (`yfinance`) for the 2015–2025 window; no local data files are
-required.
 
 ---
 
@@ -78,10 +66,10 @@ required.
 
 **Methodology**
 - **In-sample optimization (look-ahead bias)**: weights are optimized once
-  over the entire 2015–2025 window using the full history, including data
+  over the entire 2016-2026 window using the full history, including data
   that would not have been available at the time of investing. Live
   performance would likely be materially worse.
-- **Static allocation**: no rebalancing over the period — weights are fixed
+- **Static allocation**: no rebalancing over the period - weights are fixed
   at t=0 and never adjusted.
 - **Mean-variance framework only**: assumes returns are normally
   distributed and ignores skewness, fat tails, and regime changes.
@@ -148,13 +136,3 @@ required.
 - Add **Maximum Drawdown** and **Calmar Ratio** as complementary
   downside-risk metrics.
 
-**Engineering / Productionization**
-- Wrap the pipeline into **reusable functions/classes** (data loader,
-  optimizer, risk engine, reporting) instead of a linear notebook script.
-- Add **unit tests** for the optimization and risk functions.
-- Cache downloaded price data locally to avoid repeated API calls and allow
-  offline reproducibility.
-- Move hardcoded parameters (tickers, dates, risk-free rate, constraints)
-  into a **config file** (YAML/JSON).
-- Build a lightweight **dashboard** (e.g. Streamlit) to interactively
-  explore different constraint sets, universes, and time windows.
