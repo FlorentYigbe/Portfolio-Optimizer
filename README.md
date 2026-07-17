@@ -1,4 +1,4 @@
-# Quant Portfolio Optimizer
+# Quantitative Portfolio Optimizer
 
 **Author** : Florent Yigbe  
 **Program** : BSc, Mathematics in Business and Economics  
